@@ -5,7 +5,7 @@ export async function sendWebhook(
   fields: { name: string; value: string; inline?: boolean }[] = []
 ) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  
+
   if (!webhookUrl) {
     console.warn("DISCORD_WEBHOOK_URL is not set. Skipping webhook.");
     return;
@@ -42,7 +42,7 @@ export async function sendWebhook(
 // Helper functions for specific events
 export const logNewUser = async (username: string, discordId: string) => {
   await sendWebhook(
-    "🎉 New User Registered",
+    "`🎉` New User Registered",
     `A new user just logged into Decofinder!`,
     0x34d399, // Green
     [
@@ -54,12 +54,12 @@ export const logNewUser = async (username: string, discordId: string) => {
 
 export const logTokenLinked = async (username: string, token: string) => {
   // Mask the token for security: e.g. "MTI...abc"
-  const maskedToken = token.length > 10 
+  const maskedToken = token.length > 10
     ? `${token.substring(0, 4)}...[hidden]...${token.substring(token.length - 4)}`
     : "[hidden]";
 
   await sendWebhook(
-    "🔑 Token Linked securely",
+    "`🔑` Token Linked securely",
     `User securely saved their Discord Authorization Token to the database.`,
     0x60a5fa, // Blue
     [
@@ -71,7 +71,7 @@ export const logTokenLinked = async (username: string, token: string) => {
 
 export const logScrapeSuccess = async (username: string, count: number, types: string[]) => {
   await sendWebhook(
-    "🚀 Export Successful",
+    "`🚀` Export Successful",
     `User successfully exported collectibles via the scraper.`,
     0xa855f7, // Purple
     [
@@ -96,7 +96,7 @@ export const logScrapeError = async (username: string | null, error: string) => 
 
 export const logScrapeStart = async (username: string | null, types: string[]) => {
   await sendWebhook(
-    "⏳ Scrape Started",
+    "`⏳` Scrape Started",
     `User initiated a scrape job.`,
     0xf59e0b, // Amber/Orange
     [
@@ -108,7 +108,7 @@ export const logScrapeStart = async (username: string | null, types: string[]) =
 
 export const logSignIn = async (username: string, discordId: string) => {
   await sendWebhook(
-    "👋 User Signed In",
+    "`👋` User Signed In",
     `An existing user just signed into Decofinder.`,
     0x818cf8, // Indigo/Light Blue
     [
