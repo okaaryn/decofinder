@@ -1,66 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect } from "react";
+import InfoSection from "@/components/InfoSection";
+import ExportForm from "@/components/ExportForm";
+import TrustSection from "@/components/TrustSection";
+import TeamSection from "@/components/TeamSection";
+import PromoModal from "@/components/PromoModal";
 
 export default function Home() {
+  // Smooth scroll and fade-in observer
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const hiddenElements = document.querySelectorAll('.fade-in');
+    hiddenElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <PromoModal />
+      <div className="bg-glows">
+        <div className="glow-1"></div>
+        <div className="glow-2"></div>
+      </div>
+
+      <nav className="navbar">
+        <div className="navbar-brand">decofinder.xyz</div>
+        <div className="navbar-links">
+          <a href="#hero">home.</a>
+          <a href="#tool">tool.</a>
+          <a href="#cli">cli version.</a>
+          <a href="#team">team.</a>
+          <a href="/dashboard" className="highlight" style={{ fontWeight: 'bold' }}>dashboard.</a>
+        </div>
+      </nav>
+
+      <div className="layout">
+        <header id="hero" className="hero fade-in">
+          <h1 className="title">
+            Your digital collectibles, <br />
+            <span className="title-gradient">exported.</span>
+          </h1>
+          <p className="subtitle">
+            The premier scraper dedicated to seamlessly exporting your profile decorations, nameplates, and effects to build your perfect digital identity.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </header>
+
+        <main id="tool" className="content-wrapper">
+          <div className="grid fade-in">
+            <InfoSection />
+            <ExportForm />
+          </div>
+
+          <hr className="divider fade-in" />
+          <TrustSection />
+
+          <div id="team">
+            <hr className="divider fade-in" />
+            <TeamSection />
+          </div>
+        </main>
+      </div>
+    </>
   );
 }

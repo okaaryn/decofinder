@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  discordId    String   @unique
+  username     String?
+  avatar       String?
+  discordToken String?  // The custom token the user inputs for scraping
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Analytics {
+  id            String   @id @default(uuid())
+  totalRequests Int      @default(0)
+  lastUpdated   DateTime @default(now()) @updatedAt
+}
