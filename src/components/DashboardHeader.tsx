@@ -15,7 +15,6 @@ export default function DashboardHeader({ user }: { user: any }) {
           onClick={() => setDropdownOpen(!dropdownOpen)}
           style={{ 
             background: 'none', 
-            border: 'none', 
             cursor: 'pointer',
             padding: 0,
             borderRadius: '50%',
