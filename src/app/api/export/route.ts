@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const tasks: { url: string; filepath: string }[] = [];
+    const tasks: { url: string; filepath: string; id: string }[] = [];
 
     for (const product of products) {
       const name = product.name || "Unknown";
