@@ -14,6 +14,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-change-me-in-production",
 
   callbacks: {
     async signIn({ user, account, profile }) {

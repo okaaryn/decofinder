@@ -1,6 +1,6 @@
 # --- Stage 1: Install Dependencies ---
 FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 # Copy package files
@@ -9,6 +9,7 @@ RUN npm ci
 
 # --- Stage 2: Build the Application ---
 FROM node:20-alpine AS builder
+RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -21,6 +22,7 @@ RUN npm run build
 
 # --- Stage 3: Production Runner ---
 FROM node:20-alpine AS runner
+RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 ENV NODE_ENV=production
